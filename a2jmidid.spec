@@ -1,12 +1,9 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
-Version:	6
-Release:	3%{?dist}
+Version:	7
+Release:	1%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
-# Fix DSO linking error
-# https://gna.org/support/index.php?2547
-Patch0:		a2jmidid-linking.patch
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
 # The rest is GPLv2
 License:	GPLv2 and GPLv2+
@@ -34,7 +31,6 @@ one ALSA sequencer port and one JACK MIDI port. Such bridge is unidirectional.
 
 %prep
 %setup -q
-%patch0 -p1 -b .linking
 
 %build
 export CFLAGS="%{optflags}"
@@ -58,8 +54,14 @@ rm -fr %{buildroot}
 %{_bindir}/a2jmidi_bridge
 %{_bindir}/j2amidi_bridge
 %{_datadir}/dbus-1/services/org.gna.home.a2jmidid.service
+%{_mandir}/man1/a2j*
+%{_mandir}/man1/j2a*
 
 %changelog
+* Wed Jan 26 2011 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 7-1
+- Update to 7.
+- Drop upstreamed patches.
+
 * Fri Jul 16 2010 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 6-3
 - Fix license tag
 
