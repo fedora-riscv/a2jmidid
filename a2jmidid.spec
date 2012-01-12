@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	7
-Release:	2%{?dist}
+Release:	3%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
@@ -58,6 +58,9 @@ rm -fr %{buildroot}
 %{_mandir}/man1/j2a*
 
 %changelog
+* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
