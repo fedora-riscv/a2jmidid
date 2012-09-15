@@ -1,13 +1,14 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	8
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
 # The rest is GPLv2
 # Fix DSO linking: https://gna.org/support/index.php?2934
 Patch0:		a2jmidid-linking.patch
+patch1:		a2jmidid-man.patch
 License:	GPLv2 and GPLv2+
 Group:		Applications/Multimedia
 
@@ -33,6 +34,7 @@ one ALSA sequencer port and one JACK MIDI port. Such bridge is unidirectional.
 %prep
 %setup -q
 %patch0 -p1 -b .dso.linking
+%patch1 -p1 
 
 %build
 export CFLAGS="%{optflags}"
@@ -55,6 +57,9 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/j2a*
 
 %changelog
+*Sat Sep 15 2012 Jørn Lomax <northlomax@gmail.com> - 8-2
+- added patch for man pages
+
 * Mon Jul 09 2012 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 8-1
 - Update to 8.
 
