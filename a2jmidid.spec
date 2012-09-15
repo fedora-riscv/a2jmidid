@@ -8,6 +8,7 @@ Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # The rest is GPLv2
 # Fix DSO linking: https://gna.org/support/index.php?2934
 Patch0:		a2jmidid-linking.patch
+patch1:		a2jmidid-man.patch
 License:	GPLv2 and GPLv2+
 Group:		Applications/Multimedia
 
@@ -33,6 +34,7 @@ one ALSA sequencer port and one JACK MIDI port. Such bridge is unidirectional.
 %prep
 %setup -q
 %patch0 -p1 -b .dso.linking
+%patch1 -p1 
 
 %build
 export CFLAGS="%{optflags}"
@@ -55,8 +57,8 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/j2a*
 
 %changelog
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+*Sat Sep 15 2012 Jørn Lomax <northlomax@gmail.com> - 8-2
+- added patch for man pages
 
 * Mon Jul 09 2012 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 8-1
 - Update to 8.
