@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	8
-Release:	2%{?dist}
+Release:	3%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
@@ -57,7 +57,10 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/j2a*
 
 %changelog
-*Sat Sep 15 2012 Jørn Lomax <northlomax@gmail.com> - 8-2
+* Sun Jan 13 2013 Brendan Jones <brendan.jones.it@gmail.com> 8-3
+- Release bump for F19
+
+* Sat Sep 15 2012 Jørn Lomax <northlomax@gmail.com> - 8-2
 - added patch for man pages
 
 * Mon Jul 09 2012 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 8-1
