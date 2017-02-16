@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	8
-Release:	11%{?dist}
+Release:	12%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
@@ -10,6 +10,7 @@ Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 Patch0:		a2jmidid-linking.patch
 Patch1:		a2jmidid-man.patch
 Patch2:		a2jmidid-aarch64.patch
+Patch3:		a2jmidid-ppc64.patch
 License:	GPLv2 and GPLv2+
 Group:		Applications/Multimedia
 
@@ -37,6 +38,7 @@ one ALSA sequencer port and one JACK MIDI port. Such bridge is unidirectional.
 %patch0 -p1 -b .dso.linking
 %patch1 -p1 -b .man
 %patch2 -p1 -b .aarch64
+%patch3 -p1 -b .ppc64
 
 %build
 export CFLAGS="%{optflags}"
@@ -59,6 +61,9 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/j2a*
 
 %changelog
+* Thu Feb 16 2017 Orcan Ogetbil <oget [dot] fedora [at] gmail [dot] com> - 8-12
+- Add patch to fix build on ppc64*
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
