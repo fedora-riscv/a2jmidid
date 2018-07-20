@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	8
-Release:	17%{?dist}
+Release:	18%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
@@ -16,6 +16,7 @@ Group:		Applications/Multimedia
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	dbus-devel
+BuildRequires:	gcc
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	python2
 Requires:	dbus
@@ -40,8 +41,12 @@ one ALSA sequencer port and one JACK MIDI port. Such bridge is unidirectional.
 %patch2 -p1 -b .aarch64
 %patch3 -p1 -b .ppc64
 
+# Fix Python shebangs
+sed -i 's|/usr/bin/.*python$|/usr/bin/python2|' a2j_control waf wscript
+
 %build
 export CFLAGS="%{optflags}"
+export LINKFLAGS="$RPM_LD_FLAGS"
 ./waf configure --prefix=%{_prefix} \
 	--enable-pkg-config-dbus-service-dir
 ./waf %{?_smp_mflags} -v
@@ -50,7 +55,8 @@ export CFLAGS="%{optflags}"
 ./waf --destdir=%{buildroot} -v	install
 
 %files
-%doc AUTHORS README gpl2.txt NEWS
+%doc AUTHORS README NEWS
+%license gpl2.txt
 %{_bindir}/a2j
 %{_bindir}/%{name}
 %{_bindir}/a2j_control
@@ -61,6 +67,12 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/j2a*
 
 %changelog
+* Thu Jul 19 2018 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 8-18
+- Use Fedora link flags
+- BR: gcc
+- Moved license file to %%license
+- Fix Python shebangs
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 8-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
