@@ -12,7 +12,6 @@ Patch1:		a2jmidid-man.patch
 Patch2:		a2jmidid-aarch64.patch
 Patch3:		a2jmidid-ppc64.patch
 License:	GPLv2 and GPLv2+
-Group:		Applications/Multimedia
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	dbus-devel
