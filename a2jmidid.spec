@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	8
-Release:	18%{?dist}
+Release:	19%{?dist}
 URL:		http://home.gna.org/a2jmidid/
 Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
@@ -66,6 +66,9 @@ export LINKFLAGS="$RPM_LD_FLAGS"
 %{_mandir}/man1/j2a*
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Thu Jul 19 2018 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 8-18
 - Use Fedora link flags
 - BR: gcc
