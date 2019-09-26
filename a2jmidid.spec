@@ -1,25 +1,24 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
-Version:	8
-Release:	20%{?dist}
-URL:		http://home.gna.org/a2jmidid/
-Source0:	http://download.gna.org/%{name}/%{name}-%{version}.tar.bz2
+Version:	9
+Release:	1%{?dist}
+URL:		https://github.com/linuxaudio/a2jmidid
+Source0:	https://github.com/linuxaudio/a2jmidid/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Backported from upstream
+Patch0:		%{name}-man.patch
+Patch1:		%{name}-portname.patch
+
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
 # The rest is GPLv2
-# Fix DSO linking: https://gna.org/support/index.php?2934
-Patch0:		a2jmidid-linking.patch
-Patch1:		a2jmidid-man.patch
-Patch2:		a2jmidid-aarch64.patch
-Patch3:		a2jmidid-ppc64.patch
 License:	GPLv2 and GPLv2+
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	dbus-devel
 BuildRequires:	gcc
 BuildRequires:	jack-audio-connection-kit-devel
-BuildRequires:	python2
+BuildRequires:	meson
 Requires:	dbus
-
+Requires:	python3
 
 %description
 a2jmidid is a project that aims to ease usage of legacy ALSA sequencer
@@ -34,28 +33,21 @@ The second approach is to static bridges. You start application that creates
 one ALSA sequencer port and one JACK MIDI port. Such bridge is unidirectional.
 
 %prep
-%setup -q
-%patch0 -p1 -b .dso.linking
-%patch1 -p1 -b .man
-%patch2 -p1 -b .aarch64
-%patch3 -p1 -b .ppc64
+%autosetup -p1
 
 # Fix Python shebangs
-sed -i 's|/usr/bin/.*python$|/usr/bin/python2|' a2j_control waf wscript
+sed -i 's|^#!/usr/bin/env python3|#!/usr/bin/python3|' a2j_control
 
 %build
-export CFLAGS="%{optflags}"
-export LINKFLAGS="$RPM_LD_FLAGS"
-./waf configure --prefix=%{_prefix} \
-	--enable-pkg-config-dbus-service-dir
-./waf %{?_smp_mflags} -v
+%meson
+%meson_build
 
 %install
-./waf --destdir=%{buildroot} -v	install
+%meson_install
 
 %files
-%doc AUTHORS README NEWS
-%license gpl2.txt
+%doc AUTHORS.rst README.rst CHANGELOG.rst
+%license LICENSE
 %{_bindir}/a2j
 %{_bindir}/%{name}
 %{_bindir}/a2j_control
@@ -66,6 +58,10 @@ export LINKFLAGS="$RPM_LD_FLAGS"
 %{_mandir}/man1/j2a*
 
 %changelog
+* Thu Sep 26 2019 Guido Aulisi <guido.aulisi@gmail.com> - 9-1
+- Update to version 9
+- New upstream
+
 * Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
