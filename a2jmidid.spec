@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	9
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		https://github.com/linuxaudio/a2jmidid
 Source0:	https://github.com/linuxaudio/a2jmidid/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Backported from upstream
@@ -58,6 +58,9 @@ sed -i 's|^#!/usr/bin/env python3|#!/usr/bin/python3|' a2j_control
 %{_mandir}/man1/j2a*
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Thu Sep 26 2019 Guido Aulisi <guido.aulisi@gmail.com> - 9-1
 - Update to version 9
 - New upstream
