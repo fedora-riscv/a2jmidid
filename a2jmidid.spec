@@ -1,12 +1,13 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	9
-Release:	9%{?dist}
+Release:	9.rv64%{?dist}
 URL:		https://github.com/linuxaudio/a2jmidid
 Source0:	https://github.com/linuxaudio/a2jmidid/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Backported from upstream
 Patch0:		%{name}-man.patch
 Patch1:		%{name}-portname.patch
+Patch2:		%{name}-add-riscv64-support.patch
 
 # a2jmidi_bridge.c and j2amidi_bridge.c are GPLv2+
 # The rest is GPLv2
@@ -58,6 +59,9 @@ sed -i 's|^#!/usr/bin/env python3|#!/usr/bin/python3|' a2j_control
 %{_mandir}/man1/j2a*
 
 %changelog
+* Fri Oct 06 2023 Songsong Zhang <U2FsdGVkX1@gmail.com> - 9-9.rv64
+- Add riscv64 patch from https://github.com/jackaudio/a2jmidid/pull/18
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
